@@ -1,0 +1,15 @@
+# tasks file for repo_mariadb10
+- name: Ensure MariaDB repository is available
+  tags: 
+    - mariadb
+    - repos_mariadb
+  copy: src={{ item + '.repo.' + ansible_lsb.major_release }} dest=/etc/yum.repos.d/{{ item + '.repo' }}
+  with_items:
+    - mariadb
+
+- name: Loading MariaDB gpg keys
+  tags: 
+    - mariadb
+    - repos_mariadb
+  copy: src='RPM-GPG-KEY-MariaDB' dest=/etc/pki/rpm-gpg/RPM-GPG-KEY-MariaDB
+
